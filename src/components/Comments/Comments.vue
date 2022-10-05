@@ -1,6 +1,7 @@
 <template>
   <div id="blockComments">
     <h3>Comments</h3>
+    <AddComment :connector="connector" :userName="userName" />
     <ListComments :comments="comments" />
   </div>
 </template>
@@ -8,13 +9,15 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import ListComments from './ListComments.vue';
+import AddComment from './AddComment.vue';
 
 export default defineComponent({
   name: 'Comments',
   components: {
-    ListComments
+    ListComments,
+    AddComment
   },
-  props: ['comments']
+  props: ['userName', 'comments', 'connector']
 });
 </script>
 

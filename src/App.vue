@@ -1,7 +1,8 @@
 <template>
   <Comments 
-    :comments="comments" 
     userName="John Smith"
+    :comments="comments" 
+    :connector="connector"
     />
 
   <DocumentEditor 
@@ -50,7 +51,6 @@ export default defineComponent({
           commentsRevers[i] = comments[(comments.length - 1) - i];
         }
         this.comments = commentsRevers;
-        console.log(this.comments);
       }.bind(this));
       
       this.connector = connector;
