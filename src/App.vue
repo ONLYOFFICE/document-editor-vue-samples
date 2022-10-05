@@ -1,27 +1,66 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js + TypeScript App"/>
+  <Comments 
+    :comments="comments" 
+    userName="John Smith"
+    />
+
+  <DocumentEditor 
+    id="docEditor" 
+    documentServerUrl="http://192.168.0.169/"
+    :config="config"
+    :events_onDocumentReady="onDocumentReady"
+    /> 
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import HelloWorld from './components/HelloWorld.vue';
-
+import { DocumentEditor } from "@onlyoffice/document-editor-vue";
+import Comments  from "./components/Comments/Comments.vue"
+ 
 export default defineComponent({
   name: 'App',
   components: {
-    HelloWorld
-  }
+    DocumentEditor,
+    Comments
+  },
+  data() {
+    return {
+      config: {
+        document: {
+            fileType: "docx",
+            title: "demo.docx",
+            url: "https://d2nlctn12v279m.cloudfront.net/assets/docs/samples/withcomments.docx",
+        },
+        documentType: "word",
+        width: "70%",
+        height: "600px"
+      },
+      comments: [],
+      connector: null
+    }
+  },
+  methods: {
+    onDocumentReady() {
+      var editor = window.DocEditor.instances["docEditor"];
+      var connector = editor.createConnector();
+
+      connector.executeMethod("GetAllComments", null, function(comments: any) {
+        let commentsRevers = [];
+        for (var i = 0; i < comments.length; i++){
+          commentsRevers[i] = comments[(comments.length - 1) - i];
+        }
+        this.comments = commentsRevers;
+        console.log(this.comments);
+      }.bind(this));
+      
+      this.connector = connector;
+    }
+  },
 });
 </script>
 
 <style>
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
 }
 </style>
