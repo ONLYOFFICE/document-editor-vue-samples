@@ -14,6 +14,7 @@
           <span className="comment-span">Message: {{ reply["Text"] }}</span>
         </div>
       </div>
+      <AddCommentReply :connector="connector" :userName="userName" :comment="comment" />
     </div>
   </div>
 </template>
@@ -21,12 +22,14 @@
 <script lang="ts">
   import { defineComponent } from 'vue';
   import RemoveComment from './RemoveComment.vue';
+  import AddCommentReply from './AddCommentReply.vue';
 
   export default defineComponent({
     name: 'ListComments',
     components: {
+      AddCommentReply,
       RemoveComment
     },
-    props: ['connector', 'comments']
+    props: ['connector', 'comments', 'userName']
   });
 </script>

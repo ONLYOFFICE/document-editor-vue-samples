@@ -2,7 +2,7 @@
   <div id="blockComments">
     <h3>Comments</h3>
     <AddComment :connector="connector" :userName="userName" />
-    <ListComments :connector="connector" :comments="comments" />
+    <ListComments :connector="connector" :comments="comments" :userName="userName" />
   </div>
 </template>
 
