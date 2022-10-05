@@ -8,7 +8,8 @@
         <span className="comment-span">Message: {{ comment["Data"]["Text"] }} </span>
       </div>
       <div className="comment-replies">
-        <div v-for="reply of comment['Data']['Replies']" style="margin-bottom: 10px">
+        <div v-for="reply, index of comment['Data']['Replies']" style="margin-bottom: 10px">
+          <RemoveCommentReply :connector="connector" :comment="comment" :replyId="index" />
           <span className="comment-span">Author: {{ reply["UserName"] }}</span>
           <span className="comment-span">Date: {{ new Date(parseInt(reply["Time"], 10)).toLocaleString() }}</span>
           <span className="comment-span">Message: {{ reply["Text"] }}</span>
@@ -23,12 +24,14 @@
   import { defineComponent } from 'vue';
   import RemoveComment from './RemoveComment.vue';
   import AddCommentReply from './AddCommentReply.vue';
+  import RemoveCommentReply from './RemoveCommentReply.vue';
 
   export default defineComponent({
     name: 'ListComments',
     components: {
       AddCommentReply,
-      RemoveComment
+      RemoveComment,
+      RemoveCommentReply
     },
     props: ['connector', 'comments', 'userName']
   });

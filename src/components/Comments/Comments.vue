@@ -84,7 +84,7 @@ export default defineComponent({
     padding-left: 24px;
     margin-left: 7px;
     box-sizing: border-box;
-    
+    background-image: url(reply.svg);
     background-size: 22px;
     background-repeat: no-repeat;
   }
