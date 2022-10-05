@@ -2,7 +2,7 @@
   <div v-for="comment of comments">
     <div className="comment-div">
       <RemoveComment :connector="connector" :commentId="comment['Id']" />
-      <div :id="comment['Id']">
+      <div :id="comment['Id']" v-on:click="goToComment">
         <span className="comment-span">Author: {{ comment["Data"]["UserName"] }}</span>
         <span className="comment-span">Date: {{ new Date(parseInt(comment["Data"]["Time"], 10)).toLocaleString() }} </span>
         <span className="comment-span">Message: {{ comment["Data"]["Text"] }} </span>
@@ -33,6 +33,13 @@
       RemoveComment,
       RemoveCommentReply
     },
-    props: ['connector', 'comments', 'userName']
+    props: ['connector', 'comments', 'userName'],
+    methods: {
+      goToComment(e: any) {
+        if (e.target.parentElement.id) {
+          this.connector.executeMethod("MoveToComment",[e.target.parentElement.id]);
+        }
+      }
+    }
   });
 </script>
