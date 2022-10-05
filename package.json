@@ -11,7 +11,9 @@
   "dependencies": {
     "@onlyoffice/document-editor-vue": "file:../document-editor-vue/onlyoffice-document-editor-vue-0.0.1.tgz",
     "core-js": "^3.8.3",
-    "vue": "^3.2.13"
+    "vue": "^3.2.13",
+    "@types/vue-select": "^3.16.2",
+    "vue-select": "^4.0.0-beta.3"
   },
   "devDependencies": {
     "@babel/core": "^7.19.3",
