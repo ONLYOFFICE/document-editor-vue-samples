@@ -1,8 +1,11 @@
 import  { DocumentEditor }  from "@onlyoffice/document-editor-vue";
-import config from "./../config/config.json";
 import vSelect from "vue-select";
-import "vue-select/dist/vue-select.css";
+import ContentControls from "./components/ContentControls/ContentControls.vue"
+
+import config from "./../config/config.json";
 import persons from "./data/persons.json";
+
+import "vue-select/dist/vue-select.css";
 
 export default {
   title: 'Samples/Work with forms',
@@ -20,15 +23,16 @@ export default {
 };
 
 const Template = (args) => ({
-  components: { DocumentEditor, vSelect },
+  components: { DocumentEditor, vSelect, ContentControls },
   data() {
     return {
       documentServerUrl: args.documentServerUrl,
       editorId: args.editorId,
       config: args.config,
+      connector: null,
       persons: this.getPersonsOptions(),
       selectedPerson: null,
-      connector: null
+      contentControls: []
     };
   },
   methods: {
@@ -38,8 +42,8 @@ const Template = (args) => ({
         this.connector = editor.createConnector();
         this.connector.connect();
 
-        // this.getAllContentControls();
-        // this.connector.attachEvent("onChangeContentControl", this.onChangeContentControl);
+        this.getAllContentControls();
+        this.connector.attachEvent("onChangeContentControl", this.onChangeContentControl);
       } catch (err) {
         console.error(err);
       }
@@ -55,10 +59,38 @@ const Template = (args) => ({
 
       return personsOptions;
     },
-    setFormValue (formId, value) {
+    setFormValue(formId, value) {
       this.connector.executeMethod("GetFormsByTag", [formId], function(forms) {
         this.connector.executeMethod("SetFormValue", [forms[0]["InternalId"], value], null);
       }.bind(this));
+    },
+    getAllContentControls() {
+      this.connector.executeMethod ("GetAllContentControls", null, function(data) {
+        for (let i = 0; i < data.length; i++) {
+          switch (data[i].Tag) {
+            case "Male":
+              data[i].GroupKey = "Sex";
+              data[i].Type = "radio";
+              break;
+            case "Female":
+              data[i].GroupKey = "Sex";
+              data[i].Type = "radio";
+              break;
+            default:
+              data[i].Type = "input";
+          }
+  
+          this.connector.executeMethod("GetFormValue", [data[i].InternalId], (value) => {
+              data[i].Value = value ? value : "";
+              if (data.length - 1 == i) {
+                this.contentControls = data.filter((contentControl) => contentControl.Tag != "");
+              }
+          });
+        }
+      }.bind(this));
+    },
+    onChangeContentControl() {
+      this.getAllContentControls();
     }
   },
   watch: {
@@ -75,7 +107,7 @@ const Template = (args) => ({
       }
     }
   },
-  template: '<vSelect v-model="selectedPerson" :options="persons"></vSelect> <DocumentEditor :id="editorId" :config="config" :documentServerUrl="documentServerUrl" :events_onDocumentReady="onDocumentReady" />',
+  template: '<vSelect v-model="selectedPerson" :options="persons"></vSelect> <ContentControls :contentControls="contentControls" :setFormValue="setFormValue"/> <DocumentEditor :id="editorId" :config="config" :documentServerUrl="documentServerUrl" :events_onDocumentReady="onDocumentReady" />',
 });
 
 export const FillingFormTemplate = Template.bind({});
