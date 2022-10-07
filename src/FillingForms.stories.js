@@ -13,13 +13,7 @@ export default {
   decorators: [() => ({ template: '<div style="height: 400px;"><story/></div>' })],
   parameters: {
     docs: false,
-  },
-  argTypes: {
-    events_onAppReady: { action: 'onAppReady' },
-    events_onDocumentReady: { action: 'onDocumentReady' },
-    events_onDocumentStateChange: { action: 'onDocumentStateChange' },
-    events_onError: { action: 'onError' }
-  },
+  }
 };
 
 const Template = (args) => ({
