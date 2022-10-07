@@ -43,7 +43,9 @@ const Template = (args) => ({
         this.connector.connect();
 
         this.getAllContentControls();
+
         this.connector.attachEvent("onChangeContentControl", this.onChangeContentControl);
+        this.connector.attachEvent("onBlurContentControl", this.onBlurContentControl);
       } catch (err) {
         console.error(err);
       }
@@ -91,11 +93,18 @@ const Template = (args) => ({
     },
     onChangeContentControl() {
       this.getAllContentControls();
+    },
+    onBlurContentControl(contentControl) {
+      for (var [key, value] of Object.entries(this.selectedPerson.value)) {
+        if (key === contentControl.Tag) {
+          this.selectedPerson = { label: "Custom Data" }
+        }
+      }
     }
   },
   watch: {
     selectedPerson: function (newValue, oldValue) {
-      if (this.selectedPerson) {
+      if (this.selectedPerson && this.selectedPerson.label != "Custom Data") {
         for (var [key, value] of Object.entries(this.selectedPerson.value)) {
           if (key == "Sex") {
             key = value == "Male" ? "Male" : "Female";

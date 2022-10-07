@@ -24,11 +24,6 @@ export default defineComponent({
   name: 'ContentControls',
   components: { InputContentControl, RadioContentControl },
   props: ['contentControls', 'setFormValue'],
-  watch: {
-    contentControls: function() {
-      console.log(this.contentControls);
-    }
-  },
   methods: {
     getLabel(nameTag: string) {
       return nameTag.replace(/([a-z])([A-Z])/g, '$1 $2');

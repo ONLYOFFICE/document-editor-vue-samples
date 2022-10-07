@@ -51,7 +51,6 @@ const Template = (args) => ({
   },
   watch: {
     selectedForm: function (newValue, oldValue) {
-      console.log(this.selectedForm);
       let newConfig = this.config;
       newConfig = {...newConfig}
 
