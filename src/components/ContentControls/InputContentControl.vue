@@ -13,7 +13,8 @@ export default defineComponent({
   props: ['id', 'value', 'label', 'setFormValue'],
   methods: {
     onChangeInput: function (event: Event) {
-      this.setFormValue((event.target as HTMLInputElement).id, (event.target as HTMLInputElement).value)
+      this.setFormValue((event.target as HTMLInputElement).id, (event.target as HTMLInputElement).value);
+      this.$emit('onChangeSelectedPerson', {label: "Custom Data"});
     }
   },
 })

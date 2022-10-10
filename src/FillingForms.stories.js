@@ -89,11 +89,10 @@ const Template = (args) => ({
       this.getAllContentControls();
     },
     onBlurContentControl(contentControl) {
-      for (var [key, value] of Object.entries(this.selectedPerson.value)) {
-        if (key === contentControl.Tag) {
-          this.selectedPerson = { label: "Custom Data" }
-        }
-      }
+      this.selectedPerson = { label: "Custom Data" }
+    },
+    onChangeSelectedPerson(value) {
+      this.selectedPerson = value;
     }
   },
   watch: {
@@ -110,7 +109,7 @@ const Template = (args) => ({
       }
     }
   },
-  template: '<vSelect v-model="selectedPerson" :options="persons"></vSelect> <ContentControls :contentControls="contentControls" :setFormValue="setFormValue"/> <DocumentEditor :id="editorId" :config="config" :documentServerUrl="documentServerUrl" :events_onDocumentReady="onDocumentReady" />',
+  template: '<vSelect v-model="selectedPerson" :options="persons"></vSelect> <ContentControls :contentControls="contentControls" @onChangeSelectedPerson="onChangeSelectedPerson" :setFormValue="setFormValue"/> <DocumentEditor :id="editorId" :config="config" :documentServerUrl="documentServerUrl" :events_onDocumentReady="onDocumentReady" />',
 });
 
 export const FillingFormTemplate = Template.bind({});

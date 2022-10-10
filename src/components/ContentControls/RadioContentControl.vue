@@ -18,7 +18,8 @@ export default defineComponent({
   props: ['id', 'label', 'options', 'setFormValue'],
   methods: {
     onChangeRadio: function (event: Event) {
-      this.setFormValue((event.target as HTMLInputElement).id, true)
+      this.setFormValue((event.target as HTMLInputElement).id, true);
+      this.$emit('onChangeSelectedPerson', {label: "Custom Data"});
     },
     isChecked(nameTag: string) {
       for (var i = 0; i < this.options.length; i++) {

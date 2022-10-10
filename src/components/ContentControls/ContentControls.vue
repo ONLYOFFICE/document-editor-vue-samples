@@ -5,11 +5,13 @@
         :id="contentControl.Tag"
         :label="getLabel(contentControl.Tag)"
         :value="contentControl.Value"
+        @onChangeSelectedPerson="onChangeSelectedPerson"
         :setFormValue="setFormValue" />
       <RadioContentControl v-else-if="contentControl.Type === 'radio'"
         :id="contentControl.Tag"
         :label="getLabel(contentControl.Tag)"
         :options="contentControl.Value"
+        @onChangeSelectedPerson="onChangeSelectedPerson"
         :setFormValue="setFormValue" />
     </div>
   </div>
@@ -27,6 +29,9 @@ export default defineComponent({
   methods: {
     getLabel(nameTag: string) {
       return nameTag.replace(/([a-z])([A-Z])/g, '$1 $2');
+    },
+    onChangeSelectedPerson(value: any) {
+      this.$emit('onChangeSelectedPerson', value);
     }
   },
   computed: {
