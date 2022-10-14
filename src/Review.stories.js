@@ -21,7 +21,7 @@ const Template = (args) => ({
         document: {
           fileType: "docx",
           title: "demo.docx",
-          url: config.demoStorage + "demo.docx",
+          url: config.demoStorage + "review.docx",
           permissions: {
             edit: false,
             review: true
