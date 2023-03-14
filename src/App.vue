@@ -29,6 +29,7 @@ export default defineComponent({
       config: {
         document: {
             fileType: "docx",
+            key: "docx" + Math.random(),
             title: "demo.docx",
             url: "https://d2nlctn12v279m.cloudfront.net/assets/docs/samples/withcomments.docx",
         },
