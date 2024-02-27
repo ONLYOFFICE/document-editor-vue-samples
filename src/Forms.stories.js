@@ -33,7 +33,7 @@ const Template = (args) => ({
       fetch(config.oformsUrl)
         .then(response => response.json())
         .then(json => {
-          const fileOforms = json.data.map((item) => item.attributes.file_oform.data.find((f) => f.attributes.ext === ".oform"));
+          const fileOforms = json.data.map((item) => item.attributes.file_oform.data.find((f) => f.attributes.ext === ".pdf"));
           this.options = fileOforms.map((form) => {
             return form && form.attributes
               ? { value: form.attributes.url, label: form.attributes.name }
@@ -61,14 +61,14 @@ const Template = (args) => ({
 export const FormsTemplate = Template.bind({});
 FormsTemplate.storyName = "Form templates";
 FormsTemplate.args = {
-  editorId: "oformEditor",
+  editorId: "pdfEditor",
   documentServerUrl: config.documentServerUrl,
   config:{
     document: {
-      fileType: "oform",
-      key: "oform" + Math.random(),
-      title: "demo.oform",
-      url: config.demoStorage + "demo.oform",
+      fileType: "pdf",
+      key: "pdf" + Math.random(),
+      title: "oform.pdf",
+      url: config.demoStorage + "oform.pdf",
     },
     documentType: "word",
     height: "600px"

@@ -115,14 +115,14 @@ const Template = (args) => ({
 export const FillingFormTemplate = Template.bind({});
 FillingFormTemplate.storyName = "Work with forms";
 FillingFormTemplate.args = {
-  editorId: "oformEditor",
+  editorId: "pdfEditor",
   documentServerUrl: config.documentServerUrl,
   config: {
     document: {
-      fileType: "oform",
-      key: "oform" + Math.random(),
-      title: "demo.oform",
-      url: config.demoStorage + "withtags.oform",
+      fileType: "pdf",
+      key: "pdf" + Math.random(),
+      title: "withtags.pdf",
+      url: config.demoStorage + "withtags.pdf",
     },
     documentType: "word",
     height:"600px",
