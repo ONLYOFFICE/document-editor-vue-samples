@@ -1,0 +1,8 @@
+---
+- - :approve
+  - trim
+  - :who:
+    :why: MIT
+    :versions:
+    - 0.0.1
+    :when: 2025-11-20 08:51:53.537089000 Z
